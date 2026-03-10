@@ -99,4 +99,43 @@ public class TaskService {
             System.out.println(e.getMessage());
         }
     }
+
+    public void markTaskInProgress(int id) {
+        updateTaskStatus(id, TaskStatus.IN_PROGRESS);
+    }
+
+    public void markTaskDone(int id) {
+        updateTaskStatus(id, TaskStatus.DONE);
+    }
+
+    private void updateTaskStatus(int id, TaskStatus newStatus) {
+        try {
+            List<Task> tasks = repository.loadTasks();
+
+            for (int i = 0; i < tasks.size(); i++) {
+                Task task = tasks.get(i);
+
+                if (task.getId() == id) {
+                    Task updatedTask = new Task(
+                            task.getId(),
+                            task.getDescription(),
+                            newStatus,
+                            task.getCreatedAt(),
+                            Instant.now().toString()
+                    );
+
+                    tasks.set(i, updatedTask);
+                    repository.saveTasks(tasks);
+
+                    System.out.println("Task status updated successfully (ID: " + id + ")");
+                    return;
+                }
+            }
+
+            System.out.println("Error: task with ID " + id + " not found.");
+        } catch (IOException e) {
+            System.out.println("Error: could not update task status.");
+            System.out.println(e.getMessage());
+        }
+    }
 }
