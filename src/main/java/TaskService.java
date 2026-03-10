@@ -138,4 +138,49 @@ public class TaskService {
             System.out.println(e.getMessage());
         }
     }
+
+    public void listTasks() {
+        try {
+            List<Task> tasks = repository.loadTasks();
+            printTasks(tasks);
+        } catch (IOException e) {
+            System.out.println("Error: could not load tasks.");
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void listTasksByStatus(TaskStatus status) {
+        try {
+            List<Task> tasks = repository.loadTasks();
+            List<Task> filteredTasks = new java.util.ArrayList<>();
+
+            for (Task task : tasks) {
+                if (task.getStatus() == status) {
+                    filteredTasks.add(task);
+                }
+            }
+
+            printTasks(filteredTasks);
+        } catch (IOException e) {
+            System.out.println("Error: could not load tasks.");
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void printTasks(List<Task> tasks) {
+        if (tasks.isEmpty()) {
+            System.out.println("No tasks found.");
+            return;
+        }
+
+        for (Task task : tasks) {
+            System.out.println(
+                    "ID: " + task.getId()
+                            + " | Description: " + task.getDescription()
+                            + " | Status: " + task.getStatus().getJsonValue()
+                            + " | Created At: " + task.getCreatedAt()
+                            + " | Updated At: " + task.getUpdatedAt()
+            );
+        }
+    }
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="TaskServiceUpdateTest" time="0.015" tests="4" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="TaskServiceStatusTest" time="0.018" tests="4" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="25"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -59,25 +59,24 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="69.0"/>
   </properties>
-  <testcase name="updateTask_doesNothingWhenTaskIdDoesNotExist" classname="TaskServiceUpdateTest" time="0.004">
+  <testcase name="markTaskStatus_doesNothingWhenIdDoesNotExist" classname="TaskServiceStatusTest" time="0.005">
     <system-out><![CDATA[Task added successfully (ID: 1)
 Error: task with ID 99 not found.
 ]]></system-out>
   </testcase>
-  <testcase name="updateTask_updatesOnlyTheMatchingTask" classname="TaskServiceUpdateTest" time="0.003">
+  <testcase name="markTaskDone_updatesStatus" classname="TaskServiceStatusTest" time="0.004">
     <system-out><![CDATA[Task added successfully (ID: 1)
-Task added successfully (ID: 2)
-Task updated successfully (ID: 2)
+Task status updated successfully (ID: 1)
 ]]></system-out>
   </testcase>
-  <testcase name="updateTask_updatesDescriptionAndKeepsOtherFields" classname="TaskServiceUpdateTest" time="0.003">
+  <testcase name="markTaskStatus_keepsDescriptionAndCreatedAt" classname="TaskServiceStatusTest" time="0.004">
     <system-out><![CDATA[Task added successfully (ID: 1)
-Task updated successfully (ID: 1)
+Task status updated successfully (ID: 1)
 ]]></system-out>
   </testcase>
-  <testcase name="updateTask_doesNothingWhenDescriptionIsBlank" classname="TaskServiceUpdateTest" time="0.003">
+  <testcase name="markTaskInProgress_updatesStatus" classname="TaskServiceStatusTest" time="0.004">
     <system-out><![CDATA[Task added successfully (ID: 1)
-Error: new task description cannot be empty.
+Task status updated successfully (ID: 1)
 ]]></system-out>
   </testcase>
 </testsuite>

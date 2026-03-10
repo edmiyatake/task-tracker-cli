@@ -60,9 +60,55 @@ public class Main {
 
                 taskService.deleteTask(id);
             }
-            case "mark-in-progress" -> handleMarkInProgress(args);
-            case "mark-done" -> handleMarkDone(args);
-            case "list" -> handleList(args);
+            case "mark-in-progress" -> {
+                if (args.length < 2) {
+                    System.out.println("Error: missing task id.");
+                    System.out.println("Usage: mark-in-progress <id>");
+                    return;
+                }
+
+                int id = parseId(args[1]);
+                if (id == -1) return;
+
+                taskService.markTaskInProgress(id);
+            }
+
+            case "mark-done" -> {
+                if (args.length < 2) {
+                    System.out.println("Error: missing task id.");
+                    System.out.println("Usage: mark-done <id>");
+                    return;
+                }
+
+                int id = parseId(args[1]);
+                if (id == -1) return;
+
+                taskService.markTaskDone(id);
+            }
+            case "list" -> {
+                if (args.length == 1) {
+                    taskService.listTasks();
+                    return;
+                }
+
+                if (args.length > 2) {
+                    System.out.println("Error: invalid list command.");
+                    System.out.println("Usage: list | list done | list todo | list in-progress");
+                    return;
+                }
+
+                String filter = args[1];
+
+                switch (filter) {
+                    case "done" -> taskService.listTasksByStatus(TaskStatus.DONE);
+                    case "todo" -> taskService.listTasksByStatus(TaskStatus.TODO);
+                    case "in-progress" -> taskService.listTasksByStatus(TaskStatus.IN_PROGRESS);
+                    default -> {
+                        System.out.println("Error: invalid list filter.");
+                        System.out.println("Usage: list | list done | list todo | list in-progress");
+                    }
+                }
+            }
             default -> {
                 System.out.println("Unknown command: " + command);
                 printUsage();

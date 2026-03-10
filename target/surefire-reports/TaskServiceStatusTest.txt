@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
-Test set: TaskServiceUpdateTest
+Test set: TaskServiceStatusTest
 -------------------------------------------------------------------------------
-Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.015 s -- in TaskServiceUpdateTest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.018 s -- in TaskServiceStatusTest
