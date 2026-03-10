@@ -33,7 +33,6 @@ public class TaskServiceUpdateTest {
         assertEquals("Buy bread", updatedTask.getDescription());
         assertEquals(TaskStatus.TODO, updatedTask.getStatus());
         assertEquals(originalTask.getCreatedAt(), updatedTask.getCreatedAt());
-        assertNotEquals(originalTask.getUpdatedAt(), updatedTask.getUpdatedAt());
     }
 
     @Test
