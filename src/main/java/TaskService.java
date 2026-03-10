@@ -79,4 +79,24 @@ public class TaskService {
             System.out.println(e.getMessage());
         }
     }
+
+    public void deleteTask(int id) {
+        try {
+            List<Task> tasks = repository.loadTasks();
+
+            for (int i = 0; i < tasks.size(); i++) {
+                if (tasks.get(i).getId() == id) {
+                    tasks.remove(i);
+                    repository.saveTasks(tasks);
+                    System.out.println("Task deleted successfully (ID: " + id + ")");
+                    return;
+                }
+            }
+
+            System.out.println("Error: task with ID " + id + " not found.");
+        } catch (IOException e) {
+            System.out.println("Error: could not delete task.");
+            System.out.println(e.getMessage());
+        }
+    }
 }

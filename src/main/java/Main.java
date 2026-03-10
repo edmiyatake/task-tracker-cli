@@ -48,7 +48,18 @@ public class Main {
                 String newDescription = String.join(" ", Arrays.copyOfRange(args, 2, args.length));
                 taskService.updateTask(id, newDescription);
             }
-            case "delete" -> handleDelete(args);
+            case "delete" -> {
+                if (args.length < 2) {
+                    System.out.println("Error: missing task id.");
+                    System.out.println("Usage: delete <id>");
+                    return;
+                }
+
+                int id = parseId(args[1]);
+                if (id == -1) return;
+
+                taskService.deleteTask(id);
+            }
             case "mark-in-progress" -> handleMarkInProgress(args);
             case "mark-done" -> handleMarkDone(args);
             case "list" -> handleList(args);
