@@ -1,3 +1,6 @@
+import java.io.IOException;
+import java.util.Arrays;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -6,10 +9,21 @@ public class Main {
             return;
         }
 
+        TaskService taskService = new TaskService();
+
         String command = args[0];
         // handle user input from args
         switch (command) {
-            case "add" -> handleAdd(args);
+            case "add" -> {
+                if (args.length < 2) {
+                    System.out.println("Error: missing task description.");
+                    System.out.println("Usage: add <description>");
+                    return;
+                }
+
+                String description = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
+                taskService.addTask(description);
+            }
             case "update" -> handleUpdate(args);
             case "delete" -> handleDelete(args);
             case "mark-in-progress" -> handleMarkInProgress(args);
