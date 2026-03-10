@@ -226,8 +226,7 @@ public class Main {
 
     private static void printUsage() {
         System.out.println("Task Tracker CLI");
-        System.out.println();
-        System.out.println("Commands:");
+        System.out.println("Usage:");
         System.out.println("  add <description>");
         System.out.println("  update <id> <new description>");
         System.out.println("  delete <id>");

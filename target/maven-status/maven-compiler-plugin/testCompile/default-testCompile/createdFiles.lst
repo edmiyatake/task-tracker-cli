@@ -2,3 +2,4 @@ TaskServiceDeleteTest.class
 TaskServiceStatusTest.class
 TaskServiceTest.class
 TaskServiceUpdateTest.class
+TaskServiceListTest.class
