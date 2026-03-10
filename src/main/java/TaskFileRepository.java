@@ -7,12 +7,16 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class TaskFileRepository {
-    private static final Path TASKS_FILE = Path.of("tasks.json");
+    private final Path tasksFile;
+
+    public TaskFileRepository(Path tasksFile) {
+        this.tasksFile = tasksFile;
+    }
 
     public List<Task> loadTasks() throws IOException {
         ensureFileExists();
 
-        String json = Files.readString(TASKS_FILE).trim();
+        String json = Files.readString(tasksFile).trim();
         List<Task> tasks = new ArrayList<>();
 
         if (json.isEmpty() || json.equals("[]")) {
@@ -71,12 +75,12 @@ public class TaskFileRepository {
 
         sb.append("]");
 
-        Files.writeString(TASKS_FILE, sb.toString());
+        Files.writeString(tasksFile, sb.toString());
     }
 
     private void ensureFileExists() throws IOException {
-        if (!Files.exists(TASKS_FILE)) {
-            Files.writeString(TASKS_FILE, "[]");
+        if (!Files.exists(tasksFile)) {
+            Files.writeString(tasksFile, "[]");
         }
     }
 

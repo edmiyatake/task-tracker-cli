@@ -5,8 +5,8 @@ import java.util.List;
 public class TaskService {
     private final TaskFileRepository repository;
 
-    public TaskService() {
-        this.repository = new TaskFileRepository();
+    public TaskService(TaskFileRepository repository) {
+        this.repository = repository;
     }
 
     public void addTask(String description) {

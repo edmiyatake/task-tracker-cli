@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.Arrays;
 
 public class Main {
@@ -9,7 +10,8 @@ public class Main {
             return;
         }
 
-        TaskService taskService = new TaskService();
+        TaskFileRepository repository = new TaskFileRepository(Path.of("tasks.json"));
+        TaskService taskService = new TaskService(repository);
 
         String command = args[0];
         // handle user input from args
