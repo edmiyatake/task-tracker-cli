@@ -43,4 +43,40 @@ public class TaskService {
             System.out.println(e.getMessage());
         }
     }
+
+    public void updateTask(int id, String newDescription) {
+        if (newDescription == null || newDescription.trim().isEmpty()) {
+            System.out.println("Error: new task description cannot be empty.");
+            return;
+        }
+
+        try {
+            List<Task> tasks = repository.loadTasks();
+
+            for (int i = 0; i < tasks.size(); i++) {
+                Task task = tasks.get(i);
+
+                if (task.getId() == id) {
+                    Task updatedTask = new Task(
+                            task.getId(),
+                            newDescription.trim(),
+                            task.getStatus(),
+                            task.getCreatedAt(),
+                            java.time.Instant.now().toString()
+                    );
+
+                    tasks.set(i, updatedTask);
+                    repository.saveTasks(tasks);
+
+                    System.out.println("Task updated successfully (ID: " + id + ")");
+                    return;
+                }
+            }
+
+            System.out.println("Error: task with ID " + id + " not found.");
+        } catch (IOException e) {
+            System.out.println("Error: could not update task.");
+            System.out.println(e.getMessage());
+        }
+    }
 }

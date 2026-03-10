@@ -26,7 +26,28 @@ public class Main {
                 String description = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
                 taskService.addTask(description);
             }
-            case "update" -> handleUpdate(args);
+            case "update" -> {
+                if (args.length < 3) {
+                    System.out.println("Error: missing task id or new description.");
+                    System.out.println("Usage: update <id> <new description>");
+                    return;
+                }
+
+                int id;
+                try {
+                    id = Integer.parseInt(args[1]);
+                    if (id <= 0) {
+                        System.out.println("Error: id must be a positive integer.");
+                        return;
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Error: id must be a number.");
+                    return;
+                }
+
+                String newDescription = String.join(" ", Arrays.copyOfRange(args, 2, args.length));
+                taskService.updateTask(id, newDescription);
+            }
             case "delete" -> handleDelete(args);
             case "mark-in-progress" -> handleMarkInProgress(args);
             case "mark-done" -> handleMarkDone(args);
